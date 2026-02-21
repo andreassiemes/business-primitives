@@ -1,9 +1,9 @@
 # Business Primitive: Argument
 # A molecular unit composing claim, evidence, and implication.
 
+bp: "1.0"
 primitive: argument
 type: molecule
-version: "0.5"
 composed_of: [metric, decision]
 
 description: >
@@ -35,10 +35,13 @@ fields:
     description: How well-supported is this argument
 
 example:
+  bp: "1.0"
+  primitive: argument
+  id: arg-dach-expansion
   claim: "We should expand into the DACH market in Q3"
   evidence:
     - "DACH revenue grew 35% YoY without dedicated sales"
     - "3 inbound enterprise leads from Germany in Q1"
     - "Competitor X just exited the German market"
-  implication: "A dedicated DACH team could capture €2M ARR within 12 months"
+  implication: "A dedicated DACH team could capture 2M EUR ARR within 12 months"
   confidence: supported

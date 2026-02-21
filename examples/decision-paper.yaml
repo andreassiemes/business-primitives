@@ -1,85 +1,110 @@
 # Example: Decision Paper
-# A structured document for making and recording a decision
+# A structured document for making and recording a decision.
+# Business Primitives V1.0
 
-template: decision-paper
+bp: "1.0"
+page: decision-paper
 title: "Platform Migration: Build vs. Buy"
 author: "CTO"
 date: 2026-03-01
-deadline: 2026-03-15
+meta:
+  tags: [platform, migration, architecture]
+  lifecycle: active
 
-context:
-  primitive: argument
-  claim: "Our current platform cannot scale beyond 10k concurrent users"
-  evidence:
-    - "Load tests show 8.2k user ceiling before degradation"
-    - "Two production incidents in Q4 traced to scaling limits"
-    - "Infrastructure costs growing 15% MoM with diminishing returns"
-  implication: "We must either rebuild or migrate within 6 months"
-  confidence: strong
+sections:
+  - name: "Context"
+    type: argument
+    primitives:
+      - primitive: argument
+        id: arg-platform-scaling
+        claim: "Our current platform cannot scale beyond 10k concurrent users"
+        evidence:
+          - "Load tests show 8.2k user ceiling before degradation"
+          - "Two production incidents in Q4 traced to scaling limits"
+          - "Infrastructure costs growing 15% MoM with diminishing returns"
+        implication: "We must either rebuild or migrate within 6 months"
+        confidence: strong
 
-options:
-  primitive: comparison
-  question: "Should we build a new platform in-house or buy/adopt an existing solution?"
-  options:
-    - name: "Build in-house"
-      scores: { control: 9, time_to_market: 3, cost_12m: 4, risk: 5 }
-    - name: "Adopt Platform X"
-      scores: { control: 6, time_to_market: 8, cost_12m: 7, risk: 7 }
-    - name: "Hybrid (core in-house, infra Platform X)"
-      scores: { control: 8, time_to_market: 6, cost_12m: 6, risk: 6 }
-  criteria:
-    - { name: control, weight: 0.2 }
-    - { name: time_to_market, weight: 0.35 }
-    - { name: cost_12m, weight: 0.25 }
-    - { name: risk, weight: 0.2 }
-  recommendation: "Adopt Platform X — time-to-market is critical given scaling urgency"
+  - name: "Options"
+    type: comparison
+    primitives:
+      - primitive: comparison
+        id: cmp-build-vs-buy
+        question: "Should we build a new platform in-house or buy/adopt an existing solution?"
+        options:
+          - name: "Build in-house"
+            scores: { control: 9, time_to_market: 3, cost_12m: 4, risk: 5 }
+          - name: "Adopt Platform X"
+            scores: { control: 6, time_to_market: 8, cost_12m: 7, risk: 7 }
+          - name: "Hybrid (core in-house, infra Platform X)"
+            scores: { control: 8, time_to_market: 6, cost_12m: 6, risk: 6 }
+        criteria:
+          - { name: control, weight: 0.2 }
+          - { name: time_to_market, weight: 0.35 }
+          - { name: cost_12m, weight: 0.25 }
+          - { name: risk, weight: 0.2 }
+        recommendation: "Adopt Platform X — time-to-market is critical given scaling urgency"
 
-risks:
-  - primitive: risk
-    description: "Vendor lock-in with Platform X"
-    probability: medium
-    impact: medium
-    owner: "CTO"
-    mitigation: "Abstraction layer for core APIs, contractual exit clause"
+  - name: "Risks"
+    type: risk-register
+    primitives:
+      - primitive: risk
+        id: rsk-vendor-lockin
+        threat: "Vendor lock-in with Platform X"
+        probability: medium
+        impact: medium
+        owner: "CTO"
+        mitigation: "Abstraction layer for core APIs, contractual exit clause"
+        status: identified
 
-  - primitive: risk
-    description: "Team resistance to external platform"
-    probability: high
-    impact: medium
-    owner: "Engineering Lead"
-    mitigation: "Involve senior engineers in evaluation, run 2-week spike"
+      - primitive: risk
+        id: rsk-team-resistance
+        threat: "Team resistance to external platform"
+        probability: high
+        impact: medium
+        owner: "Engineering Lead"
+        mitigation: "Involve senior engineers in evaluation, run 2-week spike"
+        status: mitigating
 
-decision:
-  primitive: decision
-  who: "CTO + Board"
-  what: "Adopt Platform X with abstraction layer"
-  date: 2026-03-15
-  status: proposed
-  rationale: "Best balance of speed and control. Hybrid was close second but adds complexity."
-  alternatives:
-    - "Full in-house build — rejected due to 9-month timeline"
-    - "Hybrid approach — rejected as it combines risks of both options"
+  - name: "Decision"
+    type: decision
+    primitives:
+      - primitive: decision
+        id: dec-platform-adopt
+        decided_by: "CTO + Board"
+        title: "Adopt Platform X with abstraction layer"
+        decided_date: 2026-03-15
+        status: proposed
+        rationale: "Best balance of speed and control. Hybrid was close second but adds complexity."
+        alternatives:
+          - "Full in-house build — rejected due to 9-month timeline"
+          - "Hybrid approach — rejected as it combines risks of both options"
 
-next_steps:
-  - primitive: action
-    who: "Tech Lead"
-    what: "Run 2-week spike with Platform X sandbox"
-    deadline: 2026-03-29
-    status: open
-    priority: critical
+  - name: "Next Steps"
+    type: action-plan
+    primitives:
+      - primitive: action
+        id: act-spike-platformx
+        owner: "Tech Lead"
+        title: "Run 2-week spike with Platform X sandbox"
+        due_date: 2026-03-29
+        status: open
+        priority: critical
 
-  - primitive: action
-    who: "Legal"
-    what: "Review Platform X contract terms"
-    deadline: 2026-03-22
-    status: open
-    priority: high
+      - primitive: action
+        id: act-contract-review
+        owner: "Legal"
+        title: "Review Platform X contract terms"
+        due_date: 2026-03-22
+        status: open
+        priority: high
 
-  - primitive: timeline
-    milestone: "Go/No-Go Decision"
-    date: 2026-04-01
-    owner: "CTO"
-    dependencies:
-      - "Spike completed"
-      - "Contract reviewed"
-    status: planned
+      - primitive: timeline
+        id: tl-go-nogo
+        milestone: "Go/No-Go Decision"
+        target_date: 2026-04-01
+        owner: "CTO"
+        status: planned
+        dependencies:
+          - "Spike completed"
+          - "Contract reviewed"

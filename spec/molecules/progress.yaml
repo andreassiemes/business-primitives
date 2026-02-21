@@ -1,0 +1,80 @@
+# Business Primitive: Progress
+# A molecular unit tracking project or initiative progress.
+
+bp: "1.0"
+primitive: progress
+type: molecule
+composed_of: [metric, timeline, action]
+
+description: >
+  A progress report captures where a project or initiative stands
+  relative to its plan. It combines the quantitative (metrics, velocity)
+  with the structural (milestones, next actions) into a single,
+  renderable unit.
+
+fields:
+  - name: checkpoint
+    type: string
+    required: true
+    description: Where we stand right now
+
+  - name: velocity
+    type: string
+    required: false
+    description: Rate of progress (qualitative or quantitative)
+
+  - name: forecast
+    type: string
+    required: false
+    description: Projected completion or next milestone
+
+  - name: blockers
+    type: list
+    required: false
+    description: What is slowing progress (strings or inline risk primitives)
+
+  - name: milestones
+    type: list
+    required: false
+    description: Timeline primitives tracking key milestones
+
+  - name: metrics
+    type: list
+    required: false
+    description: Metric primitives tracking progress indicators
+
+  - name: next_actions
+    type: list
+    required: false
+    description: Action primitives for next steps
+
+example:
+  bp: "1.0"
+  primitive: progress
+  id: prg-migration-kw12
+  checkpoint: "Phase 2 of 4 complete. Data layer migrated, API layer in progress."
+  velocity: "2 milestones per month (on plan)"
+  forecast: "Full migration by KW 22 if current pace holds"
+  blockers:
+    - "Vendor API documentation incomplete for auth module"
+  milestones:
+    - milestone: "Data Layer Complete"
+      target_date: 2026-02-28
+      owner: "Data Lead"
+      status: completed
+    - milestone: "API Layer Complete"
+      target_date: 2026-03-31
+      owner: "Backend Lead"
+      status: on_track
+  metrics:
+    - name: "Endpoints Migrated"
+      value: 34
+      unit: "of 78"
+      period: "KW 12"
+      direction: up
+  next_actions:
+    - owner: "Backend Lead"
+      title: "Complete auth module migration"
+      due_date: 2026-03-15
+      status: in_progress
+      priority: high

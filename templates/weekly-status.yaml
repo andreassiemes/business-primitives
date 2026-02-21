@@ -1,0 +1,32 @@
+# Template: Weekly Status
+# A lightweight recurring status report.
+
+bp: "1.0"
+template: weekly-status
+
+description: >
+  A weekly status report provides a quick overview of progress,
+  blockers, and planned work. Designed for recurring use with
+  minimal overhead — fill in the primitives, share, move on.
+
+sections:
+  - name: "Summary"
+    organism: executive-summary
+    required: true
+    description: "Overall status and key metrics for the week"
+
+  - name: "Progress"
+    organism: progress
+    required: true
+    cardinality: "1..n"
+    description: "Progress updates for active workstreams"
+
+  - name: "Blockers"
+    organism: risk-register
+    required: false
+    description: "Issues preventing progress"
+
+  - name: "Next Week"
+    organism: action-plan
+    required: false
+    description: "Planned actions for the coming week"

@@ -1,30 +1,38 @@
 # Example: Quarterly Business Review
-# Composed from Business Primitives
+# Composed from Business Primitives V1.0
 
-template: quarterly-review
+bp: "1.0"
+page: quarterly-review
 title: "Q1 2026 Business Review"
 author: "Strategy Team"
 date: 2026-04-01
+meta:
+  tags: [q1, review, 2026]
+  lifecycle: active
 
 sections:
   - name: "Executive Summary"
-    type: organism
+    type: executive-summary
     primitives:
       - primitive: status
+        id: sts-q1-overall
         entity: "Q1 2026 Overall"
         state: green
         detail: "Revenue target met. Two key hires completed. Platform migration on track."
-        updated: 2026-03-31
+        updated_at: 2026-03-31
 
       - primitive: metric
+        id: met-revenue-q1
         name: "Revenue"
         value: 2400000
-        unit: "€"
-        trend: up
+        unit: "EUR"
+        trend: improving
+        direction: up
         period: "Q1 2026"
         target: 2200000
 
       - primitive: metric
+        id: met-nps-q1
         name: "Customer Satisfaction (NPS)"
         value: 67
         unit: "score"
@@ -33,27 +41,30 @@ sections:
         target: 65
 
   - name: "Key Decisions"
-    type: organism
+    type: decisions
     primitives:
       - primitive: decision
-        who: "Board"
-        what: "Approved DACH market expansion"
-        date: 2026-02-15
+        id: dec-dach-expansion
+        decided_by: "Board"
+        title: "Approved DACH market expansion"
+        decided_date: 2026-02-15
         status: approved
         rationale: "Strong inbound signals, competitor exit"
 
       - primitive: decision
-        who: "CTO"
-        what: "Selected GitHub Actions as CI/CD platform"
-        date: 2026-01-20
+        id: dec-cicd-platform
+        decided_by: "CTO"
+        title: "Selected GitHub Actions as CI/CD platform"
+        decided_date: 2026-01-20
         status: approved
         rationale: "Best integration score in technical evaluation"
 
   - name: "Risks"
-    type: organism
+    type: risk-register
     primitives:
       - primitive: risk
-        description: "Senior engineer attrition during platform migration"
+        id: rsk-attrition-migration
+        threat: "Senior engineer attrition during platform migration"
         probability: medium
         impact: high
         owner: "VP Engineering"
@@ -61,18 +72,20 @@ sections:
         status: mitigating
 
   - name: "Q2 Actions"
-    type: organism
+    type: action-plan
     primitives:
       - primitive: action
-        who: "Sales Lead"
-        what: "Hire DACH Account Executive"
-        deadline: 2026-04-30
+        id: act-hire-dach-ae
+        owner: "Sales Lead"
+        title: "Hire DACH Account Executive"
+        due_date: 2026-04-30
         status: open
         priority: high
 
       - primitive: action
-        who: "Product Manager"
-        what: "Launch self-service onboarding"
-        deadline: 2026-05-15
+        id: act-launch-onboarding
+        owner: "Product Manager"
+        title: "Launch self-service onboarding"
+        due_date: 2026-05-15
         status: in_progress
         priority: high

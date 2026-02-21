@@ -1,10 +1,10 @@
 # Business Primitive: Comparison
 # A molecular unit for structured option evaluation.
 
+bp: "1.0"
 primitive: comparison
 type: molecule
-version: "0.5"
-composed_of: [metric, risk, status]
+composed_of: [metric, risk, stakeholder]
 
 description: >
   A comparison structures the evaluation of alternatives.
@@ -20,12 +20,12 @@ fields:
   - name: options
     type: list
     required: true
-    description: The alternatives being compared
+    description: The alternatives being compared (objects with name and scores)
 
   - name: criteria
     type: list
     required: true
-    description: Evaluation dimensions with weights
+    description: Evaluation dimensions with weights (objects with name and weight)
 
   - name: recommendation
     type: string
@@ -33,6 +33,9 @@ fields:
     description: Which option is recommended and why
 
 example:
+  bp: "1.0"
+  primitive: comparison
+  id: cmp-cicd-platform
   question: "Which CI/CD platform should we migrate to?"
   options:
     - name: "GitHub Actions"
@@ -42,10 +45,7 @@ example:
     - name: "Jenkins"
       scores: { cost: 9, integration: 5, learning_curve: 4 }
   criteria:
-    - name: cost
-      weight: 0.3
-    - name: integration
-      weight: 0.5
-    - name: learning_curve
-      weight: 0.2
+    - { name: cost, weight: 0.3 }
+    - { name: integration, weight: 0.5 }
+    - { name: learning_curve, weight: 0.2 }
   recommendation: "GitHub Actions — best integration score outweighs minor cost difference"

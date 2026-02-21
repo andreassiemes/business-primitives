@@ -1,0 +1,37 @@
+# Template: Quarterly Review
+# A comprehensive periodic review of business performance.
+
+bp: "1.0"
+template: quarterly-review
+
+description: >
+  A quarterly review provides a structured overview of business
+  performance, key decisions, risks, and planned actions. It is
+  the standard format for periodic business reviews (quarterly,
+  half-yearly, annual).
+
+sections:
+  - name: "Executive Summary"
+    organism: executive-summary
+    required: true
+    description: "Overall status, key metrics, and headline decisions"
+
+  - name: "Performance"
+    organism: performance-dashboard
+    required: true
+    description: "KPI tracking with trends and assessments"
+
+  - name: "Key Decisions"
+    organism: decisions
+    required: false
+    description: "Significant decisions made during the period"
+
+  - name: "Risks"
+    organism: risk-register
+    required: false
+    description: "Active risks and their mitigation status"
+
+  - name: "Actions"
+    organism: action-plan
+    required: true
+    description: "Planned actions for the next period"

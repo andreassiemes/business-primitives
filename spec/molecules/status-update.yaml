@@ -1,9 +1,9 @@
 # Business Primitive: Status Update
 # A molecular unit combining metric, trend, and assessment.
 
+bp: "1.0"
 primitive: status-update
 type: molecule
-version: "0.5"
 composed_of: [metric, status, action]
 
 description: >
@@ -15,13 +15,13 @@ fields:
   - name: metric
     type: object
     required: true
-    description: The metric being reported (name, value, unit)
+    description: The metric being reported (inline metric primitive)
 
   - name: trend
     type: enum
     values: [improving, stable, declining, volatile]
     required: true
-    description: Direction over the reporting period
+    description: Evaluative direction over the reporting period
 
   - name: assessment
     type: string
@@ -33,12 +33,15 @@ fields:
     required: true
     description: Whether this requires intervention
 
-  - name: proposed_action
-    type: string
+  - name: actions
+    type: list
     required: false
-    description: Recommended next step if action is needed
+    description: Recommended next steps (inline action primitives or strings)
 
 example:
+  bp: "1.0"
+  primitive: status-update
+  id: su-velocity-kw12
   metric:
     name: "Sprint Velocity"
     value: 42
@@ -46,4 +49,5 @@ example:
   trend: declining
   assessment: "Third consecutive sprint below target. Team capacity reduced by parental leave."
   action_needed: true
-  proposed_action: "Adjust sprint commitment to 35 SP until team is back to full capacity in KW 16"
+  actions:
+    - "Adjust sprint commitment to 35 SP until team is back to full capacity in KW 16"

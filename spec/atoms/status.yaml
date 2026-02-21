@@ -1,9 +1,9 @@
 # Business Primitive: Status
 # An atomic unit representing the state assessment of an entity.
 
+bp: "1.0"
 primitive: status
 type: atom
-version: "0.5"
 
 description: >
   A status captures the current state of any entity — a project,
@@ -20,14 +20,14 @@ fields:
     type: enum
     values: [green, amber, red]
     required: true
-    description: Overall assessment (traffic light)
+    description: Overall assessment (RAG traffic light)
 
   - name: detail
     type: string
     required: true
     description: Brief explanation of current state
 
-  - name: updated
+  - name: updated_at
     type: date
     required: true
     description: When this assessment was last updated
@@ -38,8 +38,11 @@ fields:
     description: Who is responsible for this entity
 
 example:
+  bp: "1.0"
+  primitive: status
+  id: sts-migration
   entity: "Data Platform Migration"
   state: amber
   detail: "On schedule but resource risk — 2 engineers on vacation in KW 14"
-  updated: 2026-03-10
+  updated_at: 2026-03-10
   owner: "Migration Lead"

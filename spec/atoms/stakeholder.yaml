@@ -1,0 +1,51 @@
+# Business Primitive: Stakeholder
+# An atomic unit representing a person or role relevant to a decision or initiative.
+
+bp: "1.0"
+primitive: stakeholder
+type: atom
+
+description: >
+  A stakeholder maps the people and roles that matter to a decision,
+  project, or initiative. Influence and stance drive engagement strategy.
+
+fields:
+  - name: name
+    type: string
+    required: true
+    description: Person or role name
+
+  - name: role
+    type: string
+    required: true
+    description: Organizational role or title
+
+  - name: influence
+    type: enum
+    values: [high, medium, low]
+    required: true
+    description: Level of influence on outcomes
+
+  - name: stance
+    type: enum
+    values: [champion, supporter, neutral, skeptic, blocker]
+    required: true
+    description: Current position toward the initiative
+
+  - name: interests
+    type: list
+    required: false
+    description: What this stakeholder cares about
+
+example:
+  bp: "1.0"
+  primitive: stakeholder
+  id: sh-cfo
+  name: "Maria Schmidt"
+  role: "CFO"
+  influence: high
+  stance: champion
+  interests:
+    - "Cost efficiency"
+    - "Revenue growth"
+    - "Risk management"

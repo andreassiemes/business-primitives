@@ -1,9 +1,9 @@
 # Business Primitive: Metric
 # An atomic unit representing a measurable value with context.
 
+bp: "1.0"
 primitive: metric
 type: atom
-version: "0.5"
 
 description: >
   A metric is a number with context: what it measures, its unit,
@@ -24,18 +24,24 @@ fields:
   - name: unit
     type: string
     required: true
-    description: Unit of measurement (%, €, count, hours, etc.)
-
-  - name: trend
-    type: enum
-    values: [up, down, stable, volatile]
-    required: false
-    description: Direction of change
+    description: Unit of measurement (%, EUR, count, hours, etc.)
 
   - name: period
     type: string
     required: true
     description: Time period this metric covers
+
+  - name: trend
+    type: enum
+    values: [improving, stable, declining, volatile]
+    required: false
+    description: Evaluative direction of change (improving = good)
+
+  - name: direction
+    type: enum
+    values: [up, down, flat]
+    required: false
+    description: Raw directional data (up = numerically increasing)
 
   - name: target
     type: number
@@ -48,10 +54,14 @@ fields:
     description: Where this number comes from
 
 example:
+  bp: "1.0"
+  primitive: metric
+  id: met-retention-q1
   name: "Customer Retention Rate"
   value: 94.2
   unit: "%"
-  trend: up
   period: "Q1 2026"
+  trend: improving
+  direction: up
   target: 95.0
   source: "CRM Dashboard"

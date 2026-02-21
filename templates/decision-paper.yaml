@@ -1,0 +1,36 @@
+# Template: Decision Paper
+# A structured document for making and recording a decision.
+
+bp: "1.0"
+template: decision-paper
+
+description: >
+  A decision paper guides a reader from context through options
+  to a clear decision and next steps. It is the standard format
+  for organizational decisions that require documentation.
+
+sections:
+  - name: "Context"
+    organism: argument
+    required: true
+    description: "Why this decision is needed — claim, evidence, implication"
+
+  - name: "Options"
+    organism: comparison
+    required: true
+    description: "Structured evaluation of alternatives with recommendation"
+
+  - name: "Risks"
+    organism: risk-register
+    required: false
+    description: "Key risks associated with the recommended option"
+
+  - name: "Decision"
+    organism: decision
+    required: true
+    description: "The decision itself — who, what, when, why"
+
+  - name: "Next Steps"
+    organism: action-plan
+    required: false
+    description: "Immediate actions and milestones following the decision"

@@ -1,16 +1,16 @@
 # Business Primitive: Risk
 # An atomic unit representing an assessed risk.
 
+bp: "1.0"
 primitive: risk
 type: atom
-version: "0.5"
 
 description: >
-  A risk combines probability, impact, ownership, and mitigation.
-  Making risks explicit is the first step to managing them.
+  A risk combines threat description, probability, impact, ownership,
+  and mitigation. Making risks explicit is the first step to managing them.
 
 fields:
-  - name: description
+  - name: threat
     type: string
     required: true
     description: What could go wrong
@@ -43,10 +43,19 @@ fields:
     required: false
     description: Current handling state
 
+  - name: risk_score
+    type: string
+    required: false
+    description: "Computed PxI label, e.g. 'medium-high'"
+
 example:
-  description: "Key engineer leaving during migration project"
+  bp: "1.0"
+  primitive: risk
+  id: rsk-engineer-attrition
+  threat: "Key engineer leaving during migration project"
   probability: medium
   impact: high
   owner: "Engineering Lead"
   mitigation: "Cross-training program, documentation sprint in KW 12"
   status: mitigating
+  risk_score: "medium-high"

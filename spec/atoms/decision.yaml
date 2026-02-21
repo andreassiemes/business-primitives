@@ -1,26 +1,26 @@
 # Business Primitive: Decision
 # An atomic unit representing a decision made within an organization.
 
+bp: "1.0"
 primitive: decision
 type: atom
-version: "0.5"
 
 description: >
   A decision captures who decided what, when, and why.
   The most fundamental unit of organizational action.
 
 fields:
-  - name: who
+  - name: decided_by
     type: string
     required: true
     description: Person or role that made the decision
 
-  - name: what
+  - name: title
     type: string
     required: true
     description: The decision itself, stated clearly
 
-  - name: date
+  - name: decided_date
     type: date
     required: true
     description: When the decision was made (YYYY-MM-DD)
@@ -47,9 +47,12 @@ fields:
     description: Options that were considered and rejected
 
 example:
-  who: CFO
-  what: "Approved Q2 2026 marketing budget increase to €150k"
-  date: 2026-03-15
+  bp: "1.0"
+  primitive: decision
+  id: dec-budget-q2
+  decided_by: "CFO"
+  title: "Approved Q2 2026 marketing budget increase to 150k EUR"
+  decided_date: 2026-03-15
   status: approved
   rationale: "ROI from Q1 campaign exceeded projections by 40%"
   context: "Board requested growth acceleration"

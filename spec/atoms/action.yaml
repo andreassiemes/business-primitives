@@ -1,29 +1,34 @@
 # Business Primitive: Action
-# An atomic unit representing a task with ownership and deadline.
+# An atomic unit representing a task with ownership and due date.
 
+bp: "1.0"
 primitive: action
 type: atom
-version: "0.5"
 
 description: >
-  An action is a task that someone owns and has a deadline for.
+  An action is a task that someone owns and has a due date for.
   The bridge between decisions and outcomes.
 
 fields:
-  - name: who
+  - name: owner
     type: string
     required: true
     description: Person or role responsible
 
-  - name: what
+  - name: title
     type: string
     required: true
     description: What needs to be done
 
-  - name: deadline
+  - name: description
+    type: string
+    required: false
+    description: Additional detail or acceptance criteria
+
+  - name: due_date
     type: date
     required: true
-    description: When it's due (YYYY-MM-DD)
+    description: When it is due (YYYY-MM-DD)
 
   - name: status
     type: enum
@@ -37,14 +42,12 @@ fields:
     required: false
     description: Relative importance
 
-  - name: blockers
-    type: list
-    required: false
-    description: What's preventing progress
-
 example:
-  who: "Product Manager"
-  what: "Finalize Q2 roadmap and share with stakeholders"
-  deadline: 2026-03-20
+  bp: "1.0"
+  primitive: action
+  id: act-roadmap-q2
+  owner: "Product Manager"
+  title: "Finalize Q2 roadmap and share with stakeholders"
+  due_date: 2026-03-20
   status: in_progress
   priority: high
