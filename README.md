@@ -62,11 +62,11 @@ examples/           # Real-world template compositions
 
 ## Status
 
-**V0.5** — Initial definitions. Atoms and molecules defined. Examples sketched. This is the beginning.
+**V1.0** — Foundation release. Atoms and molecules defined. Website live at [businessprimitives.com](https://businessprimitives.com). Design system cohesive with [andreassiemes.de](https://andreassiemes.de) and [org-as-code.com](https://org-as-code.com).
 
 ## Author
 
-**Andreas Siemes** — [andreassiemes.de](https://andreassiemes.de) · [Org as Code](https://org-as-code.com) · [LinkedIn](https://linkedin.com/in/andreassiemes)
+**Andreas Siemes** — [andreassiemes.de](https://andreassiemes.de) · [Business Primitives](https://businessprimitives.com) · [Org as Code](https://org-as-code.com) · [LinkedIn](https://linkedin.com/in/andreassiemes)
 
 ## License
 
