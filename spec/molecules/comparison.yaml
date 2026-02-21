@@ -1,0 +1,51 @@
+# Business Primitive: Comparison
+# A molecular unit for structured option evaluation.
+
+primitive: comparison
+type: molecule
+version: "0.5"
+composed_of: [metric, risk, status]
+
+description: >
+  A comparison structures the evaluation of alternatives.
+  Instead of pros/cons lists or gut feelings, it provides
+  criteria-based assessment with a clear recommendation.
+
+fields:
+  - name: question
+    type: string
+    required: true
+    description: What decision does this comparison support
+
+  - name: options
+    type: list
+    required: true
+    description: The alternatives being compared
+
+  - name: criteria
+    type: list
+    required: true
+    description: Evaluation dimensions with weights
+
+  - name: recommendation
+    type: string
+    required: true
+    description: Which option is recommended and why
+
+example:
+  question: "Which CI/CD platform should we migrate to?"
+  options:
+    - name: "GitHub Actions"
+      scores: { cost: 8, integration: 9, learning_curve: 7 }
+    - name: "GitLab CI"
+      scores: { cost: 7, integration: 6, learning_curve: 8 }
+    - name: "Jenkins"
+      scores: { cost: 9, integration: 5, learning_curve: 4 }
+  criteria:
+    - name: cost
+      weight: 0.3
+    - name: integration
+      weight: 0.5
+    - name: learning_curve
+      weight: 0.2
+  recommendation: "GitHub Actions — best integration score outweighs minor cost difference"

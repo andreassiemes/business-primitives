@@ -1,0 +1,58 @@
+# Business Primitive: Decision
+# An atomic unit representing a decision made within an organization.
+
+primitive: decision
+type: atom
+version: "0.5"
+
+description: >
+  A decision captures who decided what, when, and why.
+  The most fundamental unit of organizational action.
+
+fields:
+  - name: who
+    type: string
+    required: true
+    description: Person or role that made the decision
+
+  - name: what
+    type: string
+    required: true
+    description: The decision itself, stated clearly
+
+  - name: date
+    type: date
+    required: true
+    description: When the decision was made (YYYY-MM-DD)
+
+  - name: status
+    type: enum
+    values: [proposed, approved, rejected, deferred, superseded]
+    required: true
+    description: Current state of the decision
+
+  - name: rationale
+    type: string
+    required: false
+    description: Why this decision was made
+
+  - name: context
+    type: string
+    required: false
+    description: Background information or constraints
+
+  - name: alternatives
+    type: list
+    required: false
+    description: Options that were considered and rejected
+
+example:
+  who: CFO
+  what: "Approved Q2 2026 marketing budget increase to €150k"
+  date: 2026-03-15
+  status: approved
+  rationale: "ROI from Q1 campaign exceeded projections by 40%"
+  context: "Board requested growth acceleration"
+  alternatives:
+    - "Maintain Q1 budget level"
+    - "Redirect funds to product development"

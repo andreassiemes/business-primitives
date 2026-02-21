@@ -1,0 +1,85 @@
+# Example: Decision Paper
+# A structured document for making and recording a decision
+
+template: decision-paper
+title: "Platform Migration: Build vs. Buy"
+author: "CTO"
+date: 2026-03-01
+deadline: 2026-03-15
+
+context:
+  primitive: argument
+  claim: "Our current platform cannot scale beyond 10k concurrent users"
+  evidence:
+    - "Load tests show 8.2k user ceiling before degradation"
+    - "Two production incidents in Q4 traced to scaling limits"
+    - "Infrastructure costs growing 15% MoM with diminishing returns"
+  implication: "We must either rebuild or migrate within 6 months"
+  confidence: strong
+
+options:
+  primitive: comparison
+  question: "Should we build a new platform in-house or buy/adopt an existing solution?"
+  options:
+    - name: "Build in-house"
+      scores: { control: 9, time_to_market: 3, cost_12m: 4, risk: 5 }
+    - name: "Adopt Platform X"
+      scores: { control: 6, time_to_market: 8, cost_12m: 7, risk: 7 }
+    - name: "Hybrid (core in-house, infra Platform X)"
+      scores: { control: 8, time_to_market: 6, cost_12m: 6, risk: 6 }
+  criteria:
+    - { name: control, weight: 0.2 }
+    - { name: time_to_market, weight: 0.35 }
+    - { name: cost_12m, weight: 0.25 }
+    - { name: risk, weight: 0.2 }
+  recommendation: "Adopt Platform X — time-to-market is critical given scaling urgency"
+
+risks:
+  - primitive: risk
+    description: "Vendor lock-in with Platform X"
+    probability: medium
+    impact: medium
+    owner: "CTO"
+    mitigation: "Abstraction layer for core APIs, contractual exit clause"
+
+  - primitive: risk
+    description: "Team resistance to external platform"
+    probability: high
+    impact: medium
+    owner: "Engineering Lead"
+    mitigation: "Involve senior engineers in evaluation, run 2-week spike"
+
+decision:
+  primitive: decision
+  who: "CTO + Board"
+  what: "Adopt Platform X with abstraction layer"
+  date: 2026-03-15
+  status: proposed
+  rationale: "Best balance of speed and control. Hybrid was close second but adds complexity."
+  alternatives:
+    - "Full in-house build — rejected due to 9-month timeline"
+    - "Hybrid approach — rejected as it combines risks of both options"
+
+next_steps:
+  - primitive: action
+    who: "Tech Lead"
+    what: "Run 2-week spike with Platform X sandbox"
+    deadline: 2026-03-29
+    status: open
+    priority: critical
+
+  - primitive: action
+    who: "Legal"
+    what: "Review Platform X contract terms"
+    deadline: 2026-03-22
+    status: open
+    priority: high
+
+  - primitive: timeline
+    milestone: "Go/No-Go Decision"
+    date: 2026-04-01
+    owner: "CTO"
+    dependencies:
+      - "Spike completed"
+      - "Contract reviewed"
+    status: planned

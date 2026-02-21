@@ -1,0 +1,49 @@
+# Business Primitive: Status Update
+# A molecular unit combining metric, trend, and assessment.
+
+primitive: status-update
+type: molecule
+version: "0.5"
+composed_of: [metric, status, action]
+
+description: >
+  A status update is what most weekly reports try to be:
+  a metric with its trend, an assessment, and whether
+  action is needed. Structured, not narrated.
+
+fields:
+  - name: metric
+    type: object
+    required: true
+    description: The metric being reported (name, value, unit)
+
+  - name: trend
+    type: enum
+    values: [improving, stable, declining, volatile]
+    required: true
+    description: Direction over the reporting period
+
+  - name: assessment
+    type: string
+    required: true
+    description: Human interpretation of what the numbers mean
+
+  - name: action_needed
+    type: boolean
+    required: true
+    description: Whether this requires intervention
+
+  - name: proposed_action
+    type: string
+    required: false
+    description: Recommended next step if action is needed
+
+example:
+  metric:
+    name: "Sprint Velocity"
+    value: 42
+    unit: "story points"
+  trend: declining
+  assessment: "Third consecutive sprint below target. Team capacity reduced by parental leave."
+  action_needed: true
+  proposed_action: "Adjust sprint commitment to 35 SP until team is back to full capacity in KW 16"

@@ -1,0 +1,44 @@
+# Business Primitive: Argument
+# A molecular unit composing claim, evidence, and implication.
+
+primitive: argument
+type: molecule
+version: "0.5"
+composed_of: [metric, decision]
+
+description: >
+  An argument is the fundamental unit of persuasion in business:
+  a claim supported by evidence, leading to an implication.
+  Every good slide, every good memo, every good pitch
+  is built from arguments.
+
+fields:
+  - name: claim
+    type: string
+    required: true
+    description: The assertion being made
+
+  - name: evidence
+    type: list
+    required: true
+    description: Supporting data points, metrics, or facts
+
+  - name: implication
+    type: string
+    required: true
+    description: What follows from this — the "so what"
+
+  - name: confidence
+    type: enum
+    values: [hypothesis, supported, strong, proven]
+    required: false
+    description: How well-supported is this argument
+
+example:
+  claim: "We should expand into the DACH market in Q3"
+  evidence:
+    - "DACH revenue grew 35% YoY without dedicated sales"
+    - "3 inbound enterprise leads from Germany in Q1"
+    - "Competitor X just exited the German market"
+  implication: "A dedicated DACH team could capture €2M ARR within 12 months"
+  confidence: supported

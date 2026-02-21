@@ -1,0 +1,52 @@
+# Business Primitive: Timeline
+# An atomic unit representing a milestone with dependencies.
+
+primitive: timeline
+type: atom
+version: "0.5"
+
+description: >
+  A timeline milestone marks a point in time that matters,
+  with explicit dependencies on what must happen before it.
+
+fields:
+  - name: milestone
+    type: string
+    required: true
+    description: Name of the milestone
+
+  - name: date
+    type: date
+    required: true
+    description: Target date (YYYY-MM-DD)
+
+  - name: owner
+    type: string
+    required: true
+    description: Person or role responsible
+
+  - name: dependencies
+    type: list
+    required: false
+    description: What must be completed before this milestone
+
+  - name: status
+    type: enum
+    values: [planned, on_track, at_risk, delayed, completed]
+    required: true
+    description: Current state
+
+  - name: deliverable
+    type: string
+    required: false
+    description: What is produced at this milestone
+
+example:
+  milestone: "MVP Launch"
+  date: 2026-06-01
+  owner: "Product Lead"
+  dependencies:
+    - "API integration complete"
+    - "Security audit passed"
+  status: on_track
+  deliverable: "Production-ready platform with core features"

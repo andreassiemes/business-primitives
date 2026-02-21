@@ -1,0 +1,50 @@
+# Business Primitive: Action
+# An atomic unit representing a task with ownership and deadline.
+
+primitive: action
+type: atom
+version: "0.5"
+
+description: >
+  An action is a task that someone owns and has a deadline for.
+  The bridge between decisions and outcomes.
+
+fields:
+  - name: who
+    type: string
+    required: true
+    description: Person or role responsible
+
+  - name: what
+    type: string
+    required: true
+    description: What needs to be done
+
+  - name: deadline
+    type: date
+    required: true
+    description: When it's due (YYYY-MM-DD)
+
+  - name: status
+    type: enum
+    values: [open, in_progress, blocked, done, cancelled]
+    required: true
+    description: Current state
+
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    required: false
+    description: Relative importance
+
+  - name: blockers
+    type: list
+    required: false
+    description: What's preventing progress
+
+example:
+  who: "Product Manager"
+  what: "Finalize Q2 roadmap and share with stakeholders"
+  deadline: 2026-03-20
+  status: in_progress
+  priority: high

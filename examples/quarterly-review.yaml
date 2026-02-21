@@ -1,0 +1,78 @@
+# Example: Quarterly Business Review
+# Composed from Business Primitives
+
+template: quarterly-review
+title: "Q1 2026 Business Review"
+author: "Strategy Team"
+date: 2026-04-01
+
+sections:
+  - name: "Executive Summary"
+    type: organism
+    primitives:
+      - primitive: status
+        entity: "Q1 2026 Overall"
+        state: green
+        detail: "Revenue target met. Two key hires completed. Platform migration on track."
+        updated: 2026-03-31
+
+      - primitive: metric
+        name: "Revenue"
+        value: 2400000
+        unit: "€"
+        trend: up
+        period: "Q1 2026"
+        target: 2200000
+
+      - primitive: metric
+        name: "Customer Satisfaction (NPS)"
+        value: 67
+        unit: "score"
+        trend: stable
+        period: "Q1 2026"
+        target: 65
+
+  - name: "Key Decisions"
+    type: organism
+    primitives:
+      - primitive: decision
+        who: "Board"
+        what: "Approved DACH market expansion"
+        date: 2026-02-15
+        status: approved
+        rationale: "Strong inbound signals, competitor exit"
+
+      - primitive: decision
+        who: "CTO"
+        what: "Selected GitHub Actions as CI/CD platform"
+        date: 2026-01-20
+        status: approved
+        rationale: "Best integration score in technical evaluation"
+
+  - name: "Risks"
+    type: organism
+    primitives:
+      - primitive: risk
+        description: "Senior engineer attrition during platform migration"
+        probability: medium
+        impact: high
+        owner: "VP Engineering"
+        mitigation: "Retention bonuses, knowledge documentation sprint"
+        status: mitigating
+
+  - name: "Q2 Actions"
+    type: organism
+    primitives:
+      - primitive: action
+        who: "Sales Lead"
+        what: "Hire DACH Account Executive"
+        deadline: 2026-04-30
+        status: open
+        priority: high
+
+      - primitive: action
+        who: "Product Manager"
+        what: "Launch self-service onboarding"
+        deadline: 2026-05-15
+        status: in_progress
+        priority: high

@@ -1,0 +1,52 @@
+# Business Primitive: Risk
+# An atomic unit representing an assessed risk.
+
+primitive: risk
+type: atom
+version: "0.5"
+
+description: >
+  A risk combines probability, impact, ownership, and mitigation.
+  Making risks explicit is the first step to managing them.
+
+fields:
+  - name: description
+    type: string
+    required: true
+    description: What could go wrong
+
+  - name: probability
+    type: enum
+    values: [low, medium, high, critical]
+    required: true
+    description: Likelihood of occurrence
+
+  - name: impact
+    type: enum
+    values: [low, medium, high, critical]
+    required: true
+    description: Severity if it occurs
+
+  - name: owner
+    type: string
+    required: true
+    description: Person or role responsible for monitoring
+
+  - name: mitigation
+    type: string
+    required: false
+    description: Planned response or prevention strategy
+
+  - name: status
+    type: enum
+    values: [identified, monitoring, mitigating, resolved, accepted]
+    required: false
+    description: Current handling state
+
+example:
+  description: "Key engineer leaving during migration project"
+  probability: medium
+  impact: high
+  owner: "Engineering Lead"
+  mitigation: "Cross-training program, documentation sprint in KW 12"
+  status: mitigating

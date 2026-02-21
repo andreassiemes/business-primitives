@@ -1,0 +1,57 @@
+# Business Primitive: Metric
+# An atomic unit representing a measurable value with context.
+
+primitive: metric
+type: atom
+version: "0.5"
+
+description: >
+  A metric is a number with context: what it measures, its unit,
+  current trend, and the period it covers. Numbers without context
+  are noise. Metrics are signal.
+
+fields:
+  - name: name
+    type: string
+    required: true
+    description: What is being measured
+
+  - name: value
+    type: number
+    required: true
+    description: The measured value
+
+  - name: unit
+    type: string
+    required: true
+    description: Unit of measurement (%, €, count, hours, etc.)
+
+  - name: trend
+    type: enum
+    values: [up, down, stable, volatile]
+    required: false
+    description: Direction of change
+
+  - name: period
+    type: string
+    required: true
+    description: Time period this metric covers
+
+  - name: target
+    type: number
+    required: false
+    description: Target or benchmark value
+
+  - name: source
+    type: string
+    required: false
+    description: Where this number comes from
+
+example:
+  name: "Customer Retention Rate"
+  value: 94.2
+  unit: "%"
+  trend: up
+  period: "Q1 2026"
+  target: 95.0
+  source: "CRM Dashboard"
