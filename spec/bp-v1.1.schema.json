@@ -1,0 +1,344 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://businessprimitives.com/schema/bp-v1.1.json",
+  "title": "Business Primitives V1.1",
+  "description": "JSON Schema for validating Business Primitives atoms and molecules. V1.1 adds Objective, OKR, Briefing, rendering hints, and new fields on Metric/Action/Status/Comparison.",
+
+  "type": "object",
+  "required": ["bp", "primitive"],
+  "properties": {
+    "bp": { "enum": ["1.0", "1.1"] },
+    "primitive": {
+      "enum": [
+        "decision", "metric", "risk", "action", "timeline", "status", "stakeholder", "objective",
+        "argument", "comparison", "status-update", "progress", "okr", "briefing"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "meta": { "$ref": "#/$defs/meta" },
+    "refs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ref" }
+    },
+    "render": { "$ref": "#/$defs/render" }
+  },
+
+  "allOf": [
+    {
+      "if": { "properties": { "primitive": { "const": "decision" } } },
+      "then": { "$ref": "#/$defs/decision" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "metric" } } },
+      "then": { "$ref": "#/$defs/metric" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "risk" } } },
+      "then": { "$ref": "#/$defs/risk" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "action" } } },
+      "then": { "$ref": "#/$defs/action" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "timeline" } } },
+      "then": { "$ref": "#/$defs/timeline" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "status" } } },
+      "then": { "$ref": "#/$defs/status" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "stakeholder" } } },
+      "then": { "$ref": "#/$defs/stakeholder" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "objective" } } },
+      "then": { "$ref": "#/$defs/objective" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "argument" } } },
+      "then": { "$ref": "#/$defs/argument" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "comparison" } } },
+      "then": { "$ref": "#/$defs/comparison" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "status-update" } } },
+      "then": { "$ref": "#/$defs/status-update" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "progress" } } },
+      "then": { "$ref": "#/$defs/progress" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "okr" } } },
+      "then": { "$ref": "#/$defs/okr" }
+    },
+    {
+      "if": { "properties": { "primitive": { "const": "briefing" } } },
+      "then": { "$ref": "#/$defs/briefing" }
+    }
+  ],
+
+  "$defs": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "created": { "type": "string", "format": "date" },
+        "updated_at": { "type": "string", "format": "date" },
+        "created_by": { "type": "string" },
+        "source": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "lifecycle": { "enum": ["draft", "active", "superseded", "archived"] }
+      },
+      "additionalProperties": false
+    },
+
+    "ref": {
+      "type": "object",
+      "required": ["id", "rel"],
+      "properties": {
+        "id": { "type": "string" },
+        "rel": { "enum": ["informs", "triggers", "blocks", "blocked-by", "supports", "supersedes", "part-of", "derived-from"] }
+      },
+      "additionalProperties": false
+    },
+
+    "render": {
+      "type": "object",
+      "description": "Optional rendering hints for display tools (non-normative).",
+      "properties": {
+        "priority": { "enum": ["hero", "default", "compact", "hidden"] },
+        "highlight": { "type": "boolean" },
+        "collapsed": { "type": "boolean" },
+        "icon": { "type": "string" },
+        "color": { "type": "string" },
+        "format": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+
+    "severity": { "enum": ["low", "medium", "high", "critical"] },
+    "trend": { "enum": ["improving", "stable", "declining", "volatile"] },
+    "urgency": { "enum": ["immediate", "this-week", "this-month", "informational"] },
+
+    "decision": {
+      "required": ["decided_by", "title", "decided_date", "status"],
+      "properties": {
+        "decided_by": { "type": "string" },
+        "title": { "type": "string" },
+        "decided_date": { "type": "string", "format": "date" },
+        "status": { "enum": ["proposed", "approved", "rejected", "deferred", "superseded"] },
+        "rationale": { "type": "string" },
+        "context": { "type": "string" },
+        "alternatives": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "metric": {
+      "required": ["name", "value", "unit"],
+      "properties": {
+        "name": { "type": "string" },
+        "value": { "type": "number" },
+        "unit": { "type": "string" },
+        "period": { "type": "string" },
+        "as_of": { "type": "string", "format": "date-time" },
+        "trend": { "$ref": "#/$defs/trend" },
+        "direction": { "enum": ["up", "down", "flat"] },
+        "target": { "type": "number" },
+        "previous": { "type": "number" },
+        "source": { "type": "string" }
+      }
+    },
+
+    "risk": {
+      "required": ["threat", "probability", "impact", "owner"],
+      "properties": {
+        "threat": { "type": "string" },
+        "probability": { "$ref": "#/$defs/severity" },
+        "impact": { "$ref": "#/$defs/severity" },
+        "owner": { "type": "string" },
+        "mitigation": { "type": "string" },
+        "status": { "enum": ["identified", "monitoring", "mitigating", "resolved", "accepted"] },
+        "risk_score": { "type": "string" }
+      }
+    },
+
+    "action": {
+      "required": ["owner", "title", "due_date", "status"],
+      "properties": {
+        "owner": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "due_date": { "type": "string", "format": "date" },
+        "status": { "enum": ["open", "in_progress", "blocked", "done", "cancelled"] },
+        "priority": { "enum": ["low", "normal", "high", "critical"] },
+        "completed_date": { "type": "string", "format": "date" }
+      }
+    },
+
+    "timeline": {
+      "required": ["milestone", "target_date", "owner", "status"],
+      "properties": {
+        "milestone": { "type": "string" },
+        "target_date": { "type": "string", "format": "date" },
+        "owner": { "type": "string" },
+        "status": { "enum": ["planned", "on_track", "at_risk", "delayed", "completed"] },
+        "dependencies": { "type": "array", "items": { "type": "string" } },
+        "deliverable": { "type": "string" }
+      }
+    },
+
+    "status": {
+      "required": ["entity", "state", "detail", "updated_at"],
+      "properties": {
+        "entity": { "type": "string" },
+        "state": { "enum": ["green", "amber", "red"] },
+        "detail": { "type": "string" },
+        "updated_at": { "type": "string", "format": "date" },
+        "owner": { "type": "string" },
+        "previous_state": { "enum": ["green", "amber", "red"] }
+      }
+    },
+
+    "stakeholder": {
+      "required": ["name", "role", "influence", "stance"],
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "influence": { "enum": ["high", "medium", "low"] },
+        "stance": { "enum": ["champion", "supporter", "neutral", "skeptic", "blocker"] },
+        "interests": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "objective": {
+      "required": ["title", "timeframe", "owner", "status"],
+      "properties": {
+        "title": { "type": "string" },
+        "timeframe": { "type": "string" },
+        "owner": { "type": "string" },
+        "status": { "enum": ["draft", "active", "achieved", "missed", "deferred"] },
+        "description": { "type": "string" },
+        "success_criteria": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "argument": {
+      "required": ["claim", "evidence", "implication"],
+      "properties": {
+        "claim": { "type": "string" },
+        "evidence": { "type": "array", "minItems": 1 },
+        "implication": { "type": "string" },
+        "confidence": { "enum": ["hypothesis", "supported", "strong", "proven"] }
+      }
+    },
+
+    "comparison": {
+      "required": ["question", "options", "criteria", "recommendation"],
+      "properties": {
+        "question": { "type": "string" },
+        "options": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["name", "scores"],
+            "properties": {
+              "name": { "type": "string" },
+              "scores": { "type": "object", "additionalProperties": { "type": "number" } },
+              "total": { "type": "number" }
+            }
+          }
+        },
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "weight"],
+            "properties": {
+              "name": { "type": "string" },
+              "weight": { "type": "number" }
+            }
+          }
+        },
+        "recommendation": { "type": "string" }
+      }
+    },
+
+    "status-update": {
+      "required": ["metric", "trend", "assessment", "action_needed"],
+      "properties": {
+        "metric": {
+          "type": "object",
+          "required": ["name", "value", "unit"],
+          "properties": {
+            "name": { "type": "string" },
+            "value": { "type": "number" },
+            "unit": { "type": "string" }
+          }
+        },
+        "trend": { "$ref": "#/$defs/trend" },
+        "assessment": { "type": "string" },
+        "action_needed": { "type": "boolean" },
+        "actions": { "type": "array" }
+      }
+    },
+
+    "progress": {
+      "required": ["checkpoint"],
+      "properties": {
+        "checkpoint": { "type": "string" },
+        "velocity": { "type": "string" },
+        "forecast": { "type": "string" },
+        "blockers": { "type": "array" },
+        "milestones": { "type": "array" },
+        "metrics": { "type": "array" },
+        "next_actions": { "type": "array" }
+      }
+    },
+
+    "okr": {
+      "required": ["objective", "key_results"],
+      "properties": {
+        "objective": { "type": "string" },
+        "key_results": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "required": ["name", "value", "unit", "target"],
+            "properties": {
+              "name": { "type": "string" },
+              "value": { "type": "number" },
+              "unit": { "type": "string" },
+              "target": { "type": "number" },
+              "trend": { "$ref": "#/$defs/trend" }
+            }
+          }
+        },
+        "overall_progress": { "type": "number", "minimum": 0, "maximum": 100 },
+        "confidence": { "enum": ["hypothesis", "supported", "strong", "proven"] }
+      }
+    },
+
+    "briefing": {
+      "required": ["subject", "situation", "significance", "recommendation"],
+      "properties": {
+        "subject": { "type": "string" },
+        "situation": { "type": "string" },
+        "significance": { "type": "string" },
+        "recommendation": { "type": "string" },
+        "urgency": { "$ref": "#/$defs/urgency" },
+        "support": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}
